@@ -48,10 +48,8 @@ const initialState: initialStateType = {
   color: useHexadecimal(),
   colors: [
     { colorid: crypto.randomUUID(), color: c1 },
-    { colorid: crypto.randomUUID(), color: "#817394" },
-    { colorid: crypto.randomUUID(), color: "#f0f0f0" },
     { colorid: crypto.randomUUID(), color: c2 },
-    { colorid: crypto.randomUUID(), color: "#0f0f0f" },
+    { colorid: crypto.randomUUID(), color: useHexadecimal() },
   ],
   background: `-webkit-linear-gradient(${rotation}deg,${c1},${c2})`,
   rotation,
@@ -74,6 +72,13 @@ const gradientSlice = createSlice({
     },
     setColors: (state, action) => {
       state.colors = [...state.colors, action.payload.newColor];
+      state.background = makeBackground(state);
+    },
+    filterColors: (state, action) => {
+      const filteredColors = state.colors.filter((color) => {
+        return color.colorid !== action.payload.deleteid;
+      });
+      state.colors = filteredColors;
       state.background = makeBackground(state);
     },
     setRotation: (state, action) => {
@@ -113,19 +118,14 @@ const gradientSlice = createSlice({
       state.repeatingLength = state.repeatingLength - action.payload.count;
       state.background = makeBackground(state);
     },
-    setBackground: (state, action) => {
-      state.background = action.payload;
-    },
     updateFull: (state) => {
       const c1 = useHexadecimal();
       const c2 = useHexadecimal();
       state.color = useHexadecimal();
       state.colors = [
         { colorid: crypto.randomUUID(), color: c1 },
-        { colorid: crypto.randomUUID(), color: "#817394" },
-        { colorid: crypto.randomUUID(), color: "#f0f0f0" },
         { colorid: crypto.randomUUID(), color: c2 },
-        { colorid: crypto.randomUUID(), color: "#0f0f0f" },
+        { colorid: crypto.randomUUID(), color: useHexadecimal() },
       ];
       state.repeatingLength = Math.floor(Math.random() * 20);
       state.repeatingUnit = ["px", "percent"][Math.floor(Math.random() * 2)] as
@@ -154,7 +154,7 @@ export const {
   setRandomcolor,
   setColor,
   setColors,
-  setBackground,
+  filterColors,
   setRotation,
   setNegativeRotation,
   setRepeating,

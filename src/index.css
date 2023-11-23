@@ -27,7 +27,6 @@
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
   }
-  /*
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -49,14 +48,9 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
   }
-  */
 
+  /*
   .dark {
-    /* Name: custom color palette
-       Author: Ilias Ism
-       URL: https://gradient.page */
-
-    /* CSS: .bg-gradient { background: var(--gradient) } */
     --gradient: #ffe29f;
 
     --background: 44 65% 6.48%;
@@ -88,6 +82,7 @@
 
     --ring: 44 100% 81%;
   }
+  */
 }
 
 @layer base {
