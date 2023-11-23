@@ -13,7 +13,7 @@ const Jsonslice = () => {
   const json = JSON.stringify(initialState, null, 2);
   const inline = JSON.stringify(initialState);
   return (
-    <div className="w-full my-4 px-4">
+    <div className="w-full px-4">
       <div className="w-full relative">
         <Gradienttext className="text-5xl aquino py-5 text-center">
           Json code

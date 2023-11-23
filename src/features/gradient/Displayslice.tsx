@@ -14,7 +14,7 @@ const Displayslice = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="w-full flex gap-y-3 py-3 justify-center flex-col items-center relative">
+    <div className="w-full flex justify-center flex-col items-center relative">
       <div className="w-full relative pb-3 shadow-md">
         <Canvas filename={JSON.stringify(background)}>
           <div

@@ -27,7 +27,7 @@
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
   }
-
+  /*
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -48,6 +48,45 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+  }
+  */
+
+  .dark {
+    /* Name: custom color palette
+       Author: Ilias Ism
+       URL: https://gradient.page */
+
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: #ffe29f;
+
+    --background: 44 65% 6.48%;
+    --foreground: 44 10% 99.05%;
+
+    --muted: 44 100% 0%;
+    --muted-foreground: 44 10% 58.1%;
+
+    --popover: 44 0% 12.15%;
+    --popover-foreground: 44 10% 99.05%;
+
+    --card: 44 0% 12.15%;
+    --card-foreground: 44 10% 99.05%;
+
+    --border: 44 100% 0%;
+    --input: 44 100% 0%;
+
+    --primary: 44 100% 81%;
+    --primary-foreground: 44 10% 8.100000000000001%;
+
+    --secondary: 44 100% 0%;
+    --secondary-foreground: 44 10% 99.05%;
+
+    --accent: 44 100% 0%;
+    --accent-foreground: 44 10% 99.05%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 44 10% 99.05%;
+
+    --ring: 44 100% 81%;
   }
 }
 

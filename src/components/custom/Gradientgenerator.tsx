@@ -6,10 +6,10 @@ import Sliderslice from "@/features/gradient/Sliderslice";
 
 const Gradientgenerator = () => {
   return (
-    <Fullscreen className="px-3 flex items-center flex-col relative">
+    <Fullscreen className="px-2 gap-y-2 flex items-center flex-col relative">
       <Displayslice />
-      <Counterslice />
       <Sliderslice />
+      <Counterslice />
     </Fullscreen>
   );
 };

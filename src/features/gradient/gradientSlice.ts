@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import useHexadecimal from "@/hooks/useHexadecimal";
 
+type colorType = {
+  colorid: string;
+  color: string;
+};
+
 type initialStateType = {
   color: string;
-  colors: string[];
+  colors: colorType[];
   background: string;
   rotation: number;
   negativeRotation: boolean;
@@ -22,7 +27,7 @@ const makeBackground = (state: initialStateType) => {
     repeating ? "repeating-" : ""
   }linear-gradient(${rotation}deg`;
   for (let i = 0; i < colors.length; i++) {
-    bg += `,${colors[i]}`;
+    bg += `,${colors[i].color}`;
   }
   let final =
     bg +
@@ -41,7 +46,13 @@ const c1 = useHexadecimal();
 const c2 = useHexadecimal();
 const initialState: initialStateType = {
   color: useHexadecimal(),
-  colors: [c1, c2],
+  colors: [
+    { colorid: crypto.randomUUID(), color: c1 },
+    { colorid: crypto.randomUUID(), color: "#817394" },
+    { colorid: crypto.randomUUID(), color: "#f0f0f0" },
+    { colorid: crypto.randomUUID(), color: c2 },
+    { colorid: crypto.randomUUID(), color: "#0f0f0f" },
+  ],
   background: `-webkit-linear-gradient(${rotation}deg,${c1},${c2})`,
   rotation,
   negativeRotation: false,
@@ -66,7 +77,9 @@ const gradientSlice = createSlice({
       state.background = makeBackground(state);
     },
     setRotation: (state, action) => {
-      state.rotation = action.payload.rotation;
+      state.rotation = state.negativeRotation
+        ? -action.payload.rotation
+        : action.payload.rotation;
       state.background = makeBackground(state);
     },
     setNegativeRotation: (state, action) => {
@@ -107,7 +120,13 @@ const gradientSlice = createSlice({
       const c1 = useHexadecimal();
       const c2 = useHexadecimal();
       state.color = useHexadecimal();
-      state.colors = [c1, c2];
+      state.colors = [
+        { colorid: crypto.randomUUID(), color: c1 },
+        { colorid: crypto.randomUUID(), color: "#817394" },
+        { colorid: crypto.randomUUID(), color: "#f0f0f0" },
+        { colorid: crypto.randomUUID(), color: c2 },
+        { colorid: crypto.randomUUID(), color: "#0f0f0f" },
+      ];
       state.repeatingLength = Math.floor(Math.random() * 20);
       state.repeatingUnit = ["px", "percent"][Math.floor(Math.random() * 2)] as
         | "px"
