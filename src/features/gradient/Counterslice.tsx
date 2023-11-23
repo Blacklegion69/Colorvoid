@@ -37,7 +37,7 @@ const Counterslice = () => {
       label: "Repeating",
       status: repeating,
       handleChange: () => {
-        dispatch(setRepeating({ repeating : !repeating}));
+        dispatch(setRepeating({ repeating: !repeating }));
       },
     },
     {
@@ -45,7 +45,7 @@ const Counterslice = () => {
       label: "Negative rotation(-)",
       status: negativeRotation,
       handleChange: () => {
-        dispatch(setNegativeRotation({ negativeRotation : !negativeRotation }));
+        dispatch(setNegativeRotation({ negativeRotation: !negativeRotation }));
       },
     },
   ];

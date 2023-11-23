@@ -57,8 +57,12 @@ const gradientSlice = createSlice({
     setRandomcolor: (state) => {
       state.color = useHexadecimal();
     },
+    setColor: (state, action) => {
+      state.color = action.payload.color;
+      state.background = makeBackground(state);
+    },
     setColors: (state, action) => {
-      state.colors = [...state.colors, action.payload];
+      state.colors = [...state.colors, action.payload.newColor];
       state.background = makeBackground(state);
     },
     setRotation: (state, action) => {
@@ -125,12 +129,11 @@ const gradientSlice = createSlice({
 const gradientSelector = (state: stateType) => {
   return state.gradientReducer;
 };
-
 const gradientReducer = gradientSlice.reducer;
 export default gradientReducer;
-
 export const {
   setRandomcolor,
+  setColor,
   setColors,
   setBackground,
   setRotation,
