@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 // import Gradienttext from "@/components/custom/Gradienttext";
 import { cn } from "@/lib/utils";
-import { Copy as Cp } from "lucide-react";
+import { Copy as Cp, X } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 type propsType = {
   text?: string;
@@ -12,14 +14,22 @@ type propsType = {
 const Copy = ({ text, className, label }: propsType) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const { toast } = useToast();
 
   const handleCopyClick = () => {
     if (textAreaRef.current) {
       textAreaRef.current.select();
-      console.log(textAreaRef.current);
       document.execCommand("copy");
       setIsCopied(true);
-      // Optionally, you can show a notification or perform any other action after copying.
+      toast({
+        title: "Copied",
+        description: "Copied at " + new Date().toLocaleString(),
+        action: (
+          <ToastAction altText="cancel">
+            <X />
+          </ToastAction>
+        ),
+      });
     }
   };
 

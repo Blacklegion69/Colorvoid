@@ -1,8 +1,10 @@
 import React, { useCallback, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import { Button } from "@/components/ui/button";
-import { DownloadCloud } from "lucide-react";
+import { DownloadCloud, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 type propsType = {
   children: React.ReactNode;
@@ -13,6 +15,8 @@ type propsType = {
 const Canvas = ({ children, className, filename }: propsType) => {
   const [isLoading, setIsLoading] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+
   const onButtonClick = useCallback(() => {
     if (ref.current === null) {
       return;
@@ -25,6 +29,15 @@ const Canvas = ({ children, className, filename }: propsType) => {
         link.href = dataUrl;
         link.click();
         setIsLoading(false);
+        toast({
+          title: "Downloaded",
+          description: "Downloaded at " + new Date().toLocaleString(),
+          action: (
+            <ToastAction altText="cancel">
+              <X />
+            </ToastAction>
+          ),
+        });
       })
       .catch((err) => {
         console.log(err);

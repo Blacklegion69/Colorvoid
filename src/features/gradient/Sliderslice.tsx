@@ -29,7 +29,7 @@ const Sliderslice = () => {
               Rotation :
             </Card>
             <Card className="w-full border-none flex justify-between items-center">
-              <CardHeader className="w-[90px] text-center">
+              <CardHeader className="max-w-[90px] text-center">
                 {Math.abs(rotation)}
               </CardHeader>
               <Slider

@@ -3,13 +3,13 @@ import Copy from "@/components/custom/Copy";
 import Gradienttext from "@/components/custom/Gradienttext";
 import { LightAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useSelector } from "react-redux";
-import { gradientSelector } from "@/features/gradient/gradientSlice";
+import { meshSelector } from "@/features/mesh/meshSlice";
 import { Card } from "@/components/ui/card";
 // @ts-ignore
 import solarizedDarkAtom from "@/constant/solarized-dark-atom";
 
 const Jsonslice = () => {
-  const initialState = useSelector(gradientSelector);
+  const initialState = useSelector(meshSelector);
   const json = JSON.stringify(initialState, null, 2);
   const inline = JSON.stringify(initialState);
   return (

@@ -31,7 +31,7 @@ const Gradientgenerators = () => {
       <div className="w-full flex justify-center p-2 gap-2 px-4 items-center flex-col">
         {data.map((card, id) => {
           return (
-            <Link to={card.path}>
+            <Link key={id} to={card.path}>
               <Card className="" key={id}>
                 <CardHeader>
                   <CardTitle>{card.title}</CardTitle>

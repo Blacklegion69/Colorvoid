@@ -1,16 +1,16 @@
 import { useSelector } from "react-redux";
-import { gradientSelector } from "@/features/gradient/gradientSlice";
+import { meshSelector } from "@/features/mesh/meshSlice";
 import Canvas from "@/components/custom/Canvas";
 import Copy from "@/components/custom/Copy";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dices } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { updateFull } from "@/features/gradient/gradientSlice";
+import { updateFull } from "@/features/mesh/meshSlice";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Displayslice = () => {
-  const { background } = useSelector(gradientSelector);
+  const { background } = useSelector(meshSelector);
   const dispatch = useDispatch();
 
   return (
@@ -18,7 +18,7 @@ const Displayslice = () => {
       <Card className="w-full bg-transparent border-none relative pb-3">
         <Canvas filename="Colorvoid-gradient">
           <Card
-            style={{ background }}
+            style={{ backgroundImage: background }}
             className="w-full h-[190px] rounded shadow-lg"
           ></Card>
         </Canvas>
