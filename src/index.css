@@ -181,6 +181,34 @@
       10px 10px,
       10px 10px;
   }
+  .gridbg-dark {
+    background-color: #000000;
+    opacity: 0.8;
+    background-image: linear-gradient(
+        #ffffff 0.6000000000000001px,
+        transparent 0.6000000000000001px
+      ),
+      linear-gradient(
+        to right,
+        #ffffff 0.6000000000000001px,
+        #000000 0.6000000000000001px
+      );
+    background-size: 12px 12px;
+  }
+  .gridbg {
+    background-color: #ffffff;
+    opacity: 0.8;
+    background-image: linear-gradient(
+        #000000 0.6000000000000001px,
+        transparent 0.6000000000000001px
+      ),
+      linear-gradient(
+        to right,
+        #000000 0.6000000000000001px,
+        #ffffff 0.6000000000000001px
+      );
+    background-size: 12px 12px;
+  }
   .stroke {
     -webkit-text-stroke: 1px #000000;
     text-stroke: 1px #000000;

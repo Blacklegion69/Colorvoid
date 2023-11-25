@@ -1,83 +1,115 @@
 import { Card } from "@/components/ui/card";
-import { meshSelector } from "@/features/mesh/meshSlice";
-import { useSelector } from "react-redux";
+import { Button } from "@/components/ui/button";
+import { meshSelector, deleteColor } from "@/features/mesh/meshSlice";
+import { useSelector, useDispatch } from "react-redux";
 import {
-  X,
   Pause,
   Settings,
   Palette,
   Ruler,
   Shapes,
-  Move3D,
+  Trash2,
+  Expand,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import shortener from "@/hooks/Meshparametershortener";
 
 const Listslice = () => {
+  const [isOpen, setIsOpen] = useState(true);
   const { colors } = useSelector(meshSelector);
+  const dispatch = useDispatch();
 
-  const shortener = (data: string): string => {
-    // closest-side || closest-corner || farthest-side || farthest-corner
-    switch (data) {
-      case "closest-side":
-        return "cs";
-      case "closest-corner":
-        return "cc";
-      case "farthest-side":
-        return "fs";
-      case "circle":
-        return "ci";
-      case "ellipse":
-        return "el";
-      default:
-        return "fc";
-    }
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 150,
+      behavior: "smooth",
+    });
   };
 
+  const Header = () => {
+    return (
+      <Card className="w-full p-2 [&>*]:m-2 border-none [&>*]:m-auto [&>*]:border-none grid grid-cols-9 justify-center items-center relative">
+        <Card>
+          <Ruler />
+        </Card>
+        <Card>
+          <Shapes />
+        </Card>
+        <Card className="font-bold text-xl">X</Card>
+        <Card className="font-bold text-xl">Y</Card>
+        <Card className="col-span-2">
+          <Palette />
+        </Card>
+        <Card>
+          <Pause />
+        </Card>
+      </Card>
+    );
+  };
+
+  const handleDelete = (deletedId: string) => {
+    dispatch(deleteColor({ deletedId }));
+  };
+
+  useEffect(() => {
+    handleScrollToTop();
+  }, []);
+
   return (
-    <Card className="w-full bg-transparent border-none flex justify-center items-center flex-col relative">
-      <ScrollArea className="w-full max-h-[200px overflow-y-scroll]">
-        <Card className="w-full bg-transparent border-none flex justify-center gap-y-2 items-center flex-col relative p-2">
-          {colors.map((each) => {
-            return (
-              <Card>
-                <Card className="w-full p-2 [&>*]:m-2 border-none [&>*]:m-auto [&>*]:border-none grid grid-cols-9 justify-center items-center relative">
-                  <Card>
-                    <Ruler />
-                  </Card>
-                  <Card>
-                    <Shapes />
-                  </Card>
-                  <Card>
-                    <X />
-                  </Card>
-                  <Card>
-                    <Move3D />
-                  </Card>
-                  <Card className="col-span-2">
-                    <Palette style={{ color: each.data.color1 }} />
-                  </Card>
-                  <Card>
-                    <Pause />
-                  </Card>
-                </Card>
+    <Card className="w-full min-h-[80dvh] bg-transparent border-none flex items-center flex-col relative">
+      <Card className="w-full bg-transparent border-none flex justify-between items-center relative">
+        <Card></Card>
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          className="font-bold m-2 text-xl"
+        >
+          {isOpen ? "Close" : <Expand />}
+        </Button>
+      </Card>
+      <motion.div
+        initial={{
+          height: "500px",
+          opacity: 1,
+        }}
+        animate={{
+          height: isOpen ? "500px" : "0px",
+          opacity: isOpen ? 1 : 0,
+        }}
+        className="w-full overflow-y-scroll"
+      >
+        <Header />
+        <ScrollArea className="w-full m-0 p-0 gridbg dark:gridbg-dark max-h-[500px] overflow-y-scroll">
+          <Card className="w-full m-0 p-0 bg-transparent border-none flex justify-center gap-y-2 items-center flex-col relative p-2">
+            {colors.map((each, id) => {
+              return (
                 <Card
-                  key={each.colorid}
+                  key={id}
                   className="w-full border-none p-2 [&>*]:m-2 [&>*]:border-transparent [&>div]:text-center [&>p]:w-[80px] [&>*]:uppercase grid grid-cols-9 justify-around items-center"
                 >
-                  <Card>{shortener(each.data.size)}</Card>
-                  <Card>{shortener(each.data.shape)}</Card>
-                  <Card>{each.data.positionX}%</Card>
-                  <Card>{each.data.positionY}%</Card>
-                  <p className="col-span-2">{each.data.color1}</p>
-                  <Card>{each.data.endingPoint}%</Card>
+                  <Card>{shortener(each.size)}</Card>
+                  <Card>{shortener(each.shape)}</Card>
+                  <Card>{each.positionX}</Card>
+                  <Card>{each.positionY}</Card>
+                  <p
+                    style={{ borderBottom: `4px solid ${each.color1}` }}
+                    className="w-full col-span-2 border-transparent"
+                  >
+                    {each.color1}
+                  </p>
+                  <Card>{each.endingPoint}</Card>
                   <Settings className="m-auto" />
-                  <X className="m-auto" />
+                  <Trash2
+                    onClick={() => handleDelete(each.colorid)}
+                    className="text-red-600"
+                  />
                 </Card>
-              </Card>
-            );
-          })}
-        </Card>
-      </ScrollArea>
+              );
+            })}
+          </Card>
+        </ScrollArea>
+      </motion.div>
     </Card>
   );
 };

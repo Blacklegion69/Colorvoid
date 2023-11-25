@@ -10,15 +10,16 @@ import { updateFull } from "@/features/mesh/meshSlice";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Displayslice = () => {
-  const { background } = useSelector(meshSelector);
+  const { background, single } = useSelector(meshSelector);
   const dispatch = useDispatch();
 
+  const data = `background-color: ${single};background-image: ${background};`;
   return (
     <Card className="w-full border-none bg-transparent flex justify-center flex-col items-center relative">
       <Card className="w-full bg-transparent border-none relative pb-3">
-        <Canvas filename="Colorvoid-gradient">
+        <Canvas filename="Colorvoid-mesh">
           <Card
-            style={{ backgroundImage: background }}
+            style={{ backgroundColor: single, backgroundImage: background }}
             className="w-full h-[190px] rounded shadow-lg"
           ></Card>
         </Canvas>
@@ -31,9 +32,9 @@ const Displayslice = () => {
       </Card>
       <Card className="w-full rounded my-2 p-2 flex justify-between items-center relative">
         <ScrollArea className="text-xs overflow-y-scroll max-h-[30px]">
-          {background}
+          {data}
         </ScrollArea>
-        <Copy text={JSON.stringify(background)} />
+        <Copy text={JSON.stringify(data)} />
       </Card>
     </Card>
   );

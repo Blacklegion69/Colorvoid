@@ -18,6 +18,7 @@ const Canvas = ({ children, className, filename }: propsType) => {
   const { toast } = useToast();
 
   const onButtonClick = useCallback(() => {
+    const d = new Date().toLocaleString();
     if (ref.current === null) {
       return;
     }
@@ -25,7 +26,9 @@ const Canvas = ({ children, className, filename }: propsType) => {
     toPng(ref.current, { cacheBust: true })
       .then((dataUrl) => {
         const link = document.createElement("a");
-        link.download = filename ? filename : `${crypto.randomUUID()}`;
+        link.download = filename
+          ? filename + JSON.stringify(d)
+          : `${crypto.randomUUID()}`;
         link.href = dataUrl;
         link.click();
         setIsLoading(false);

@@ -3,23 +3,22 @@ import useHexadecimal from "@/hooks/useHexadecimal";
 
 type colorType = {
   colorid: string;
-  data: {
-    size: string;
-    shape: string;
-    positionX: number;
-    positionY: number;
-    color1: string;
-    endingPoint: number;
-  };
+
+  size: string;
+  shape: string;
+  positionX: number;
+  positionY: number;
+  color1: string;
+  endingPoint: number;
+
   bg: string;
 };
-
 type initialStateType = {
   color: colorType;
   colors: colorType[];
+  single: string;
   background: string;
 };
-
 type stateType = {
   meshReducer: initialStateType;
 };
@@ -46,11 +45,10 @@ const generateRandomBlock = () => {
   };
   return {
     colorid: crypto.randomUUID(),
-    data,
+    ...data,
     bg: `radial-gradient(${data.size} ${data.shape} at ${data.positionX}% ${data.positionY}%, ${data.color1} 0%, transparent ${data.endingPoint}%)`,
   };
 };
-
 const makeBackground = (info: initialStateType) => {
   const colors = info.colors;
   let bg = "";
@@ -59,15 +57,14 @@ const makeBackground = (info: initialStateType) => {
   }
   return bg;
 };
-
 const d1 = generateRandomBlock();
 const d2 = generateRandomBlock();
 const d3 = generateRandomBlock();
 const d4 = generateRandomBlock();
-
 const initialState: initialStateType = {
   color: d1,
   colors: [d2, d3, d4],
+  single: useHexadecimal(),
   background: `${d2.bg},${d3.bg},${d4.bg}`,
 };
 
@@ -78,23 +75,32 @@ const meshSlice = createSlice({
     handleSize: (state, action) => {
       const search = state.colors.map((each) => {
         if (each.colorid === action.payload.id) {
-          each.data.size = action.payload.size;
+          each.size = action.payload.size;
+          state.background = makeBackground(state); // Move this line here
           return each;
-          state.background = makeBackground(state);
         } else {
           return each;
         }
       });
       state.colors = search;
-      state.background = makeBackground(state);
     },
     updateFull: (state) => {
-      state.colors = [
-        generateRandomBlock(),
-        generateRandomBlock(),
-        generateRandomBlock(),
-        generateRandomBlock(),
-      ];
+      state.colors = Array.from({ length: 4 }, () => generateRandomBlock());
+      state.single = useHexadecimal();
+      state.background = makeBackground(state);
+    },
+    generateRandom: (state) => {
+      state.color = generateRandomBlock();
+      state.background = makeBackground(state);
+    },
+    addColor: (state, action) => {
+      state.colors = [...state.colors, action.payload.newColor]; // Keep only the latest four colors
+      state.background = makeBackground(state);
+    },
+    deleteColor: (state, action) => {
+      state.colors = state.colors.filter(
+        (each) => each.colorid !== action.payload.deletedId,
+      );
       state.background = makeBackground(state);
     },
   },
@@ -103,8 +109,8 @@ const meshSlice = createSlice({
 const meshSelector = (state: stateType) => {
   return state.meshReducer;
 };
-
 const meshReducer = meshSlice.reducer;
 export default meshReducer;
-export const { handleSize, updateFull } = meshSlice.actions;
+export const { handleSize, updateFull, generateRandom, addColor, deleteColor } =
+  meshSlice.actions;
 export { meshSelector };

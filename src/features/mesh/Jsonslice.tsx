@@ -9,9 +9,13 @@ import { Card } from "@/components/ui/card";
 import solarizedDarkAtom from "@/constant/solarized-dark-atom";
 
 const Jsonslice = () => {
-  const initialState = useSelector(meshSelector);
-  const json = JSON.stringify(initialState, null, 2);
-  const inline = JSON.stringify(initialState);
+  const { background, single } = useSelector(meshSelector);
+  const data = {
+    backgroundColor: single,
+    backgroundImage: background,
+  };
+  const json = JSON.stringify(data, null, 2);
+  const inline = JSON.stringify(data);
   return (
     <Card className="border-none bg-transparent w-full px-4">
       <Card className="border-none bg-transparent w-full relative">
