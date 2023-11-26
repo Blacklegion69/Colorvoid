@@ -11,9 +11,7 @@ import Colorvariant from "@/components/section/Colorvariant";
 import ScrollToTopButton from "@/components/section/ScrollToTopButton";
 import featureslist from "@/constant/featureslist";
 import Canvas from "@/components/custom/Canvas";
-import { LightAsync as SyntaxHighlighter } from "react-syntax-highlighter";
-// @ts-ignore
-import solarizedDarkAtom from "@/constant/solarized-dark-atom";
+import Json from "@/components/redux/Json";
 
 const Gradientbox = ({
   main,
@@ -104,28 +102,12 @@ const Color = () => {
       hsl: useHexaToHsl(c2),
     },
   };
-  const json = JSON.stringify(data, null, 2);
   return (
     <Fullscreen className="flex px-2 pt-20 items-center flex-col relative">
       <Gradienttext className="text-6xl aquino py-5">Color</Gradienttext>
       <Duelcolor />
       <Duelgradient />
-      <div className="w-full relative">
-        <Gradienttext className="text-5xl aquino py-5 text-center my-4">
-          Json code
-        </Gradienttext>
-        <Canvas>
-          <SyntaxHighlighter
-            className="w-full rounded"
-            language="json5"
-            style={solarizedDarkAtom}
-            showLineNumbers
-          >
-            {json}
-          </SyntaxHighlighter>
-        </Canvas>
-        <Copy className="absolute bottom-0 right-0" text={json} />
-      </div>
+      <Json code={JSON.stringify(data)} />
       <Colorvariant color={colors[0].main} />
       <Gradienttext className="text-5xl aquino py-5 text-center">
         Text visibility

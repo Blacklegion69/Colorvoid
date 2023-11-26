@@ -29,7 +29,7 @@ const makeBackground = (state: initialStateType) => {
   for (let i = 0; i < colors.length; i++) {
     bg += `,${colors[i].color}`;
   }
-  let final =
+  const final =
     bg +
     ` ${
       repeating

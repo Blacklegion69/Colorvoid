@@ -2,19 +2,12 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { meshSelector, deleteColor } from "@/features/mesh/meshSlice";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Pause,
-  Settings,
-  Palette,
-  Ruler,
-  Shapes,
-  Trash2,
-  Expand,
-} from "lucide-react";
+import { Settings, Trash2, Expand } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import shortener from "@/hooks/Meshparametershortener";
+import Header from "@/components/redux/Header";
 
 const Listslice = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -26,27 +19,6 @@ const Listslice = () => {
       top: 150,
       behavior: "smooth",
     });
-  };
-
-  const Header = () => {
-    return (
-      <Card className="w-full p-2 [&>*]:m-2 border-none [&>*]:m-auto [&>*]:border-none grid grid-cols-9 justify-center items-center relative">
-        <Card>
-          <Ruler />
-        </Card>
-        <Card>
-          <Shapes />
-        </Card>
-        <Card className="font-bold text-xl">X</Card>
-        <Card className="font-bold text-xl">Y</Card>
-        <Card className="col-span-2">
-          <Palette />
-        </Card>
-        <Card>
-          <Pause />
-        </Card>
-      </Card>
-    );
   };
 
   const handleDelete = (deletedId: string) => {

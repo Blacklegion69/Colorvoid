@@ -7,7 +7,7 @@ export function ModeToggle() {
   const [isDark, setIsDark] = useState(true);
   useEffect(() => {
     setTheme(isDark ? "dark" : "light");
-  }, [isDark]);
+  }, [isDark, setTheme]);
   return (
     <div onClick={() => setIsDark(!isDark)}>{isDark ? <Moon /> : <Sun />}</div>
   );

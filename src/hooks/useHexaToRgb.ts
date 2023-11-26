@@ -13,7 +13,7 @@ const useHexaToRgb = (hexacode: string) => {
   };
 
   const validation = (value: number) => {
-    let val = value.toString().length;
+    const val = value.toString().length;
     if (val !== 3 && val === 2) {
       return `0${value}`;
     } else if (val !== 2 && val === 1) {

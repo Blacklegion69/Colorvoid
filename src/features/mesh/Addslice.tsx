@@ -7,7 +7,8 @@ import {
   addColor,
 } from "@/features/mesh/meshSlice";
 import shortener from "@/hooks/Meshparametershortener";
-import { Dices, BadgePlus, Pause, Palette, Ruler, Shapes } from "lucide-react";
+import { Dices, BadgePlus } from "lucide-react";
+import Header from "@/components/redux/Header";
 
 const Addslice = () => {
   const { color } = useSelector(meshSelector);
@@ -21,22 +22,7 @@ const Addslice = () => {
   return (
     <Card className="w-full p-2 flex justify-center items-center flex-col relative">
       <Card className="w-full bg-transparent border-none">
-        <Card className="w-full p-2 [&>*]:m-2 border-none [&>*]:m-auto [&>*]:border-none grid grid-cols-7 justify-center items-center relative">
-          <Card>
-            <Ruler />
-          </Card>
-          <Card>
-            <Shapes />
-          </Card>
-          <Card className="font-bold text-xl">X</Card>
-          <Card className="font-bold text-xl">Y</Card>
-          <Card style={{ color: color.color1 }} className="col-span-2">
-            <Palette />
-          </Card>
-          <Card>
-            <Pause />
-          </Card>
-        </Card>
+        <Header className="grid-cols-7" />
         <Card className="w-full border-none p-2 [&>*]:m-2 [&>*]:border-transparent [&>div]:text-center [&>p]:w-[80px] [&>*]:uppercase grid grid-cols-7 justify-around items-center">
           <Card>{shortener(color.size)}</Card>
           <Card>{shortener(color.shape)}</Card>

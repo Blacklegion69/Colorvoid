@@ -1,47 +1,45 @@
 import useOpositeHexadecimal from "@/hooks/useOpositeHexadecimal";
 import { Link } from "react-router-dom";
-
 import { Separator } from "@/components/ui/separator";
 type propsType = {
   color: string;
 };
-const replaceDigitAtPosition = (
-  originalString: string,
-  position: number,
-  replacementDigit: string,
-) => {
-  if (position >= 0 && position < originalString.length) {
-    const modifiedString =
-      originalString.substring(0, position) +
-      replacementDigit +
-      originalString.substring(position + 1);
-
-    return modifiedString;
-  } else {
-    console.log("Invalid position.");
-    return originalString;
-  }
-};
-
-const Eachvariant = (c: string, position: number) => {
-  const code = c.replace("#", "");
-  const hexacode = "0123456789abcdef".split("");
-  let variant = [];
-  for (let i = 0; i < hexacode.length; i++) {
-    const slice = replaceDigitAtPosition(code, position, hexacode[i]);
-    variant.push("#" + slice);
-  }
-  return variant;
-};
-const fullVariant = (color: string) => {
-  let final = [];
-  for (let i = 0; i < 6; i++) {
-    final.push(Eachvariant(color, i));
-  }
-  return final;
-};
 
 const Colorvariant = ({ color }: propsType) => {
+  const replaceDigitAtPosition = (
+    originalString: string,
+    position: number,
+    replacementDigit: string,
+  ) => {
+    if (position >= 0 && position < originalString.length) {
+      const modifiedString =
+        originalString.substring(0, position) +
+        replacementDigit +
+        originalString.substring(position + 1);
+      return modifiedString;
+    } else {
+      console.log("Invalid position.");
+      return originalString;
+    }
+  };
+  const Eachvariant = (c: string, position: number) => {
+    const code = c.replace("#", "");
+    const hexacode = "0123456789abcdef".split("");
+    const variant = [];
+    for (let i = 0; i < hexacode.length; i++) {
+      const slice = replaceDigitAtPosition(code, position, hexacode[i]);
+      variant.push("#" + slice);
+    }
+    return variant;
+  };
+  const fullVariant = (color: string) => {
+    const final = [];
+    for (let i = 0; i < 6; i++) {
+      final.push(Eachvariant(color, i));
+    }
+    return final;
+  };
+
   const colors = [
     color.replace("#", ""),
     useOpositeHexadecimal(color).replace("#", ""),

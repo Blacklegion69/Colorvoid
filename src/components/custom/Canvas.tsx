@@ -45,7 +45,7 @@ const Canvas = ({ children, className, filename }: propsType) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [ref]);
+  }, [ref, toast, filename]);
   const Downloadbutton = () => {
     return (
       <Button
