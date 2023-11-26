@@ -25,8 +25,7 @@ const Gradientbox = ({
     <div className="w-full p-2 bg-slate-900 rounded dark:bg-transparent">
       <div style={{ background: bg }} className="py-6 shadow-md rounded"></div>
       <Gradienttext className="flex mt-2">
-        {bg}{" "}
-        <Copy className="font-bold bg-slate-700 dark:bg-slate-100" text={bg} />
+        {bg} <Copy className="font-bold" text={bg} />
       </Gradienttext>
     </div>
   );

@@ -3,14 +3,12 @@ import useHexadecimal from "@/hooks/useHexadecimal";
 
 type colorType = {
   colorid: string;
-
   size: string;
   shape: string;
   positionX: number;
   positionY: number;
   color1: string;
   endingPoint: number;
-
   bg: string;
 };
 type initialStateType = {
@@ -94,7 +92,7 @@ const meshSlice = createSlice({
       state.background = makeBackground(state);
     },
     addColor: (state, action) => {
-      state.colors = [...state.colors, action.payload.newColor]; // Keep only the latest four colors
+      state.colors = [action.payload.newColor, ...state.colors]; // Keep only the latest four colors
       state.background = makeBackground(state);
     },
     deleteColor: (state, action) => {
