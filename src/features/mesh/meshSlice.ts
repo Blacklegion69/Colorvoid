@@ -12,6 +12,7 @@ type colorType = {
   bg: string;
 };
 type initialStateType = {
+  selectedItem: string;
   color: colorType;
   colors: colorType[];
   single: string;
@@ -32,14 +33,14 @@ const generateRandomBlock = () => {
   const positionX = Math.floor(Math.random() * 100);
   const positionY = Math.floor(Math.random() * 100);
   const color1 = useHexadecimal();
-  const endingPoint = Math.floor(Math.random() * 100);
+  const endingPoint = Math.floor(Math.random() * 100) + 20;
   const data = {
     size,
     shape,
     positionX,
     positionY,
     color1,
-    endingPoint,
+    endingPoint: endingPoint > 100 ? 100 : endingPoint,
   };
   return {
     colorid: crypto.randomUUID(),
@@ -60,6 +61,7 @@ const d2 = generateRandomBlock();
 const d3 = generateRandomBlock();
 const d4 = generateRandomBlock();
 const initialState: initialStateType = {
+  selectedItem: "",
   color: d1,
   colors: [d2, d3, d4],
   single: useHexadecimal(),
@@ -70,17 +72,8 @@ const meshSlice = createSlice({
   name: "mesh",
   initialState,
   reducers: {
-    handleSize: (state, action) => {
-      const search = state.colors.map((each) => {
-        if (each.colorid === action.payload.id) {
-          each.size = action.payload.size;
-          state.background = makeBackground(state); // Move this line here
-          return each;
-        } else {
-          return each;
-        }
-      });
-      state.colors = search;
+    selectItem: (state, action) => {
+      state.selectedItem = action.payload.selectedId;
     },
     updateFull: (state) => {
       state.colors = Array.from({ length: 4 }, () => generateRandomBlock());
@@ -101,6 +94,14 @@ const meshSlice = createSlice({
       );
       state.background = makeBackground(state);
     },
+    updatePositionX: (state, action) => {
+      state.colors.filter((each) => {
+        if (each.colorid === state.selectedItem) {
+          each.positionX = action.payload.valuex;
+        }
+      });
+      state.background = makeBackground(state);
+    },
   },
 });
 
@@ -109,6 +110,12 @@ const meshSelector = (state: stateType) => {
 };
 const meshReducer = meshSlice.reducer;
 export default meshReducer;
-export const { handleSize, updateFull, generateRandom, addColor, deleteColor } =
-  meshSlice.actions;
+export const {
+  updateFull,
+  updatePositionX,
+  generateRandom,
+  addColor,
+  deleteColor,
+  selectItem,
+} = meshSlice.actions;
 export { meshSelector };

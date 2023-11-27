@@ -18,14 +18,14 @@ type propsType = {
 
 const Item = ({ each, handleDelete, handleSetting }: propsType) => {
   return (
-    <Card className="w-full border-none p-2 [&>*]:m-2 [&>*]:border-transparent [&>div]:text-center [&>p]:w-[80px] [&>*]:uppercase grid grid-cols-9 justify-around items-center">
+    <Card className="w-full rounded-none p-2 [&>*]:m-2 [&>*]:border-transparent [&>div]:text-center [&>p]:w-[80px] [&>*]:uppercase grid grid-cols-9 justify-around items-center">
       <Card>{shortener(each.size)}</Card>
       <Card>{shortener(each.shape)}</Card>
       <Card>{each.positionX}</Card>
       <Card>{each.positionY}</Card>
       <p
-        style={{ borderBottom: `4px solid ${each.color1}` }}
-        className="w-full col-span-2 border-transparent"
+        style={{ border: `4px solid ${each.color1}` }}
+        className="w-full rounded font-bold col-span-2 border-transparent"
       >
         {each.color1}
       </p>

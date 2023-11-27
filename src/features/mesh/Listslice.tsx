@@ -1,7 +1,11 @@
 import * as React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { meshSelector, deleteColor } from "@/features/mesh/meshSlice";
+import {
+  meshSelector,
+  deleteColor,
+  selectItem,
+} from "@/features/mesh/meshSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Expand } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -13,12 +17,9 @@ import Controller from "@/features/mesh/Controller";
 
 const Listslice = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [settingId, setSettingId] = useState("");
   const [openSetting, setOpenSetting] = useState(false);
-
   const { colors } = useSelector(meshSelector);
   const dispatch = useDispatch();
-
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 150,
@@ -27,8 +28,8 @@ const Listslice = () => {
   };
 
   const handleSetting = (id: string) => {
-    setSettingId(id);
     setOpenSetting(true);
+    dispatch(selectItem({ selectedId: id }));
   };
 
   const handleDelete = (deletedId: string) => {
@@ -41,24 +42,19 @@ const Listslice = () => {
 
   return (
     <Card className="w-full min-h-[80dvh] bg-transparent border-none flex items-center flex-col relative">
-      <Card
-        className="w-full backdrop-blur-lg rounded-none border-transparent bg-transparent z-30 overflow-hidden min-h-screen fixed top-0 flex justify-center items-center flex-col"
-        style={{ display: openSetting ? "flex" : "none" }}
-      >
-        <motion.div
-          initial={{ display: "none" }}
-          animate={{ display: openSetting ? "flex" : "none" }}
-          className="w-full flex justify-center items-center flex-col relative"
-        >
-          <Controller id={settingId} />
-          <Button
-            className="font-bold text-xl px-9 my-3"
-            onClick={() => setOpenSetting(false)}
-          >
-            X
-          </Button>
-        </motion.div>
-      </Card>
+      {openSetting && (
+        <Card className="w-full backdrop-blur-lg rounded-none border-transparent bg-transparent z-30 overflow-hidden min-h-screen fixed top-0 flex justify-center items-center flex-col">
+          <div className="w-full flex justify-center items-center flex-col relative">
+            <Controller />
+            <Button
+              className="font-bold text-xl px-9 my-3"
+              onClick={() => setOpenSetting(false)}
+            >
+              X
+            </Button>
+          </div>
+        </Card>
+      )}
       <Card className="w-full bg-transparent border-none flex justify-between items-center relative">
         <Card></Card>
         <Button
@@ -81,7 +77,7 @@ const Listslice = () => {
       >
         <Header />
         <ScrollArea className="w-full m-0 p-0 gridbg dark:gridbg-dark max-h-[500px] overflow-y-scroll">
-          <Card className="w-full m-0 p-0 bg-transparent border-none flex justify-center gap-y-2 items-center flex-col relative p-2">
+          <Card className="w-full m-0 p-0 bg-transparent border-none flex justify-center items-center flex-col relative">
             {colors.map((each, id) => {
               return (
                 <React.Fragment key={id}>

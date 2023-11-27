@@ -1,73 +1,110 @@
+import { useState } from "react";
+
 import Combo from "@/components/redux/Combo";
 import { Card } from "@/components/ui/card";
+import { useSelector, useDispatch } from "react-redux";
+import { meshSelector, updatePositionX } from "@/features/mesh/meshSlice";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
+import { shapeData, sizeData } from "@/constant/controllerData";
 
-const Controller = ({ id }: { id: string }) => {
-  const shape = [
-    {
-      value: "circle",
-      label: "Circle",
-    },
-    {
-      value: "ellipse",
-      label: "Ellipse",
-    },
-  ];
-  const size = [
-    {
-      value: "farthest-side",
-      label: "farthest-side",
-    },
-    {
-      value: "closest-corner",
-      label: "closest-corner",
-    },
-    {
-      value: "closest-side",
-      label: "closest-side",
-    },
-    {
-      value: "farthest-corner",
-      label: "farthest-corner",
-    },
-  ];
+const Controller = () => {
+  const { single, colors, selectedItem } = useSelector(meshSelector);
+  const dispatch = useDispatch();
+
+  const find = colors.filter((each) => {
+    return each.colorid === selectedItem;
+  });
+
+  const { shape, size, color1, positionX, colorid, bg } = find[0];
+
+  const handleBackground = () => {};
+  const handleColor = () => {};
+  const getShape = (value: string) => {
+    console.log({ shape: value });
+  };
+  const getSize = (value: string) => {
+    console.log({ value });
+  };
+
+  const [x, setX] = useState(0);
+  const handleX = (e: any) => {
+    // console.log(e)
+    setX(e);
+    dispatch(updatePositionX({ valuex: x }));
+  };
 
   return (
-    <Card className="w-full px-2 py-4 flex justify-center items-center flex-col relative">
-      <Card>ID:{id}</Card>
-      <Card className="w-full my-4 gap-x-2 p-2 flex justify-center items-center">
+    <Card className="w-full gap-y-2 px-2 py-4 flex justify-center items-center flex-col relative">
+      <Card className="w-full p-2">ID:{colorid}</Card>
+      <Card
+        style={{
+          backgroundColor: single,
+          backgroundImage: bg,
+        }}
+        className="w-full h-[200px]"
+      ></Card>
+      <Card className="w-full border-transparent my-4 gap-x-2 p-2 flex justify-center items-center">
         <Card className="w-full border-none flex justify-center flex-col relative">
           <Card className="border-none font-bold bg-transparent p-2">
             Shape:
           </Card>
-          <Combo data={shape} />
+          <Combo
+            handleChange={getShape}
+            defaultValue={shape}
+            data={shapeData}
+          />
           <Card className="border-none font-bold bg-transparent p-2">
             Size:
           </Card>
-          <Combo data={size} />
+          <Combo handleChange={getSize} defaultValue={size} data={sizeData} />
         </Card>
         <Card className="w-full border-none flex justify-center flex-col relative">
           <Card className="border-none font-bold bg-transparent p-2">
             Background:
           </Card>
-          <Input type="color" value="#ff00ff" />
+          <Input type="color" onChange={handleBackground} value={single} />
           <Card className="border-none font-bold bg-transparent p-2">
             Color:
           </Card>
-          <Input type="color" value="#f0f0f0" />
+          <Input type="color" onChange={handleColor} value={color1} />
         </Card>
       </Card>
 
       <Card className="w-full border-none flex justify-center flex-col">
-        <Card className="border-none font-bold mt-2 text-xl">PosotionX :</Card>
-        <Slider className="mb-2" value={[50]} min={0} max={100} step={0.25} />
-        <Card className="border-none font-bold mt-2 text-xl">PositionY :</Card>
-        <Slider className="mb-2" value={[50]} min={0} max={100} step={0.25} />
-        <Card className="border-none font-bold mt-2 text-xl">
-          Endingpoint :
-        </Card>
-        <Slider className="mb-2" value={[50]} min={0} max={100} step={0.25} />
+        <Slider
+          className="mb-2"
+          onValueChange={handleX}
+          value={[positionX]}
+          min={0}
+          max={100}
+          step={0.25}
+        />
+        {/*
+          <Card
+            key={id}
+            className="w-full border-transparent flex justify-center items-center"
+          >
+            <Card className="w-full border-transparent">
+              <Card className="border-none font-bold mt-2 text-xl">
+                {each.label} :
+              </Card>
+              <Slider
+                className="mb-2"
+                onChange={(e:any) =>
+                  each.action(e)
+                }
+                value={[each.value]}
+                min={0}
+                max={100}
+                step={0.25}
+              />
+            </Card>
+            <Card className="w-[100px] h-full text-center border-transparent">
+              {each.value}
+            </Card>
+          </Card>
+      */}
       </Card>
     </Card>
   );

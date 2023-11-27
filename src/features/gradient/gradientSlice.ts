@@ -131,7 +131,7 @@ const gradientSlice = createSlice({
       state.repeatingUnit = ["px", "percent"][Math.floor(Math.random() * 2)] as
         | "px"
         | "percent";
-      state.repeating = [true, false][Math.floor(Math.random() * 2)];
+      //  state.repeating = [true, false][Math.floor(Math.random() * 2)];
       state.negativeRotation = [true, false][Math.floor(Math.random() * 2)];
       state.rotation = state.negativeRotation
         ? -Math.floor(Math.random() * 360)
