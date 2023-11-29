@@ -95,11 +95,13 @@ const meshSlice = createSlice({
       state.background = makeBackground(state);
     },
     updatePositionX: (state, action) => {
-      state.colors.filter((each) => {
+      const final = state.colors.map((each) => {
         if (each.colorid === state.selectedItem) {
-          each.positionX = action.payload.valuex;
+          return { ...each, positionX: action.payload.valuex };
         }
+        return each;
       });
+      state.colors = final;
       state.background = makeBackground(state);
     },
   },

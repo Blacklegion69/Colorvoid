@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Combo from "@/components/redux/Combo";
 import { Card } from "@/components/ui/card";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,15 +25,19 @@ const Controller = () => {
     console.log({ value });
   };
 
-  const [x, setX] = useState(0);
   const handleX = (e: any) => {
     // console.log(e)
-    setX(e);
-    dispatch(updatePositionX({ valuex: x }));
+
+    dispatch(updatePositionX({ valuex: e }));
   };
 
   return (
     <Card className="w-full gap-y-2 px-2 py-4 flex justify-center items-center flex-col relative">
+      <Card className="w-full text-center">
+        {" "}
+        This controller is too complicated so I will complete this in a separate
+        project 😤
+      </Card>
       <Card className="w-full p-2">ID:{colorid}</Card>
       <Card
         style={{
