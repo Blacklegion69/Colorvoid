@@ -14,8 +14,9 @@ import { motion } from "framer-motion";
 import Header from "@/components/redux/Header";
 import Item from "@/components/redux/Item";
 import Controller from "@/features/mesh/Controller";
+import { block } from "million/react";
 
-const Listslice = () => {
+const Listslice = block(() => {
   const [isOpen, setIsOpen] = useState(true);
   const [openSetting, setOpenSetting] = useState(false);
   const { colors } = useSelector(meshSelector);
@@ -89,11 +90,26 @@ const Listslice = () => {
                 </React.Fragment>
               );
             })}
+            {/*
+            <For each={colors}>
+            {
+              (each,id)=> (
+                            <React.Fragment key={id}>
+                  <Item
+                    each={each}
+                    handleDelete={handleDelete}
+                    handleSetting={handleSetting}
+                  />
+                </React.Fragment>
+              )
+            }
+            </For>
+            */}
           </Card>
         </ScrollArea>
       </motion.div>
     </Card>
   );
-};
+});
 
 export default Listslice;

@@ -7,8 +7,9 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { block } from "million/react";
 
-const Gradientgenerators = () => {
+const Gradientgenerators = block(() => {
   const data = [
     {
       title: "Generate gradient color",
@@ -44,6 +45,6 @@ const Gradientgenerators = () => {
       </div>
     </Fullscreen>
   );
-};
+});
 
 export default Gradientgenerators;

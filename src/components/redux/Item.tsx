@@ -1,6 +1,7 @@
 import shortener from "@/hooks/Meshparametershortener";
 import { Card } from "@/components/ui/card";
 import { Settings, Trash2 } from "lucide-react";
+import { block } from "million/react";
 
 type propsType = {
   each: {
@@ -16,7 +17,7 @@ type propsType = {
   handleSetting: (value: string) => void;
 };
 
-const Item = ({ each, handleDelete, handleSetting }: propsType) => {
+const Item = block(({ each, handleDelete, handleSetting }: propsType) => {
   return (
     <Card className="w-full rounded-none p-2 [&>*]:m-2 [&>*]:border-transparent [&>div]:text-center [&>p]:w-[80px] [&>*]:uppercase grid grid-cols-9 justify-around items-center">
       <Card>{shortener(each.size)}</Card>
@@ -40,6 +41,6 @@ const Item = ({ each, handleDelete, handleSetting }: propsType) => {
       />
     </Card>
   );
-};
+});
 
 export default Item;

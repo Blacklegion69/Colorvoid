@@ -1,13 +1,14 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { block } from "million/react";
 
 type propsType = {
   children: React.ReactNode;
   className?: string;
 };
 
-const Fullscreen = ({ children, className }: propsType) => {
+const Fullscreen = block(({ children, className }: propsType) => {
   return (
     <motion.div
       initial={{ y: -50, opacity: 0 }}
@@ -27,6 +28,6 @@ const Fullscreen = ({ children, className }: propsType) => {
       {children}
     </motion.div>
   );
-};
+});
 
 export default Fullscreen;

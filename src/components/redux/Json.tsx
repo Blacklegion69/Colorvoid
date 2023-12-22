@@ -5,8 +5,9 @@ import { LightAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { Card } from "@/components/ui/card";
 // @ts-expect-error: This is a temporary workaround until the issue is resolved.
 import solarizedDarkAtom from "@/constant/solarized-dark-atom";
+import { block } from "million/react";
 
-const Json = ({ code }: { code: string }) => {
+const Json = block(({ code }: { code: string }) => {
   const json = JSON.stringify(JSON.parse(code), null, 2);
   return (
     <Card className="border-none bg-transparent w-full">
@@ -38,6 +39,6 @@ const Json = ({ code }: { code: string }) => {
       <Copy text={code} />
     </Card>
   );
-};
+});
 
 export default Json;

@@ -1,4 +1,4 @@
-import { Loader } from "lucide-react";
+// import { Loader } from "lucide-react";
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 const Root = lazy(() => import("@/pages/Root"));
@@ -13,7 +13,9 @@ const Hexa2rgb = lazy(() => import("@/pages/Hexa2rgb"));
 const Rgb2hexa = lazy(() => import("@/pages/Rgb2hexa"));
 const Gradient = lazy(() => import("@/pages/Gradient"));
 const Mesh = lazy(() => import("@/pages/Mesh"));
+import Loading from "@/components/custom/Loading";
 
+/*
 const Loading = () => {
   return (
     <div className="w-full min-h-screen flex justify-center items-center relative">
@@ -21,6 +23,7 @@ const Loading = () => {
     </div>
   );
 };
+*/
 
 const Router = () => {
   return (

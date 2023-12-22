@@ -5,6 +5,7 @@ import { DownloadCloud, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { block } from "million/react";
 
 type propsType = {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ type propsType = {
   filename?: string;
 };
 
-const Canvas = ({ children, className, filename }: propsType) => {
+const Canvas = block(({ children, className, filename }: propsType) => {
   const [isLoading, setIsLoading] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -73,6 +74,6 @@ const Canvas = ({ children, className, filename }: propsType) => {
       </div>
     </div>
   );
-};
+});
 
 export default Canvas;

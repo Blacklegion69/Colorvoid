@@ -1,6 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 // import { shapeData, sizeData } from "@/constant/controllerData";
+import { block } from "million/react";
 
 type propsType = {
   defaultValue: string;
@@ -11,7 +12,7 @@ type propsType = {
   handleChange: (value: string) => void;
 };
 
-const Combo = ({ defaultValue, data, handleChange }: propsType) => {
+const Combo = block(({ defaultValue, data, handleChange }: propsType) => {
   // console.log({ defaultValue, shapeData, sizeData });
   return (
     <RadioGroup
@@ -30,6 +31,6 @@ const Combo = ({ defaultValue, data, handleChange }: propsType) => {
       })}
     </RadioGroup>
   );
-};
+});
 
 export default Combo;

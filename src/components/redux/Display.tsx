@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dices } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { block } from "million/react";
 
 type propsType = {
   background: string;
@@ -11,7 +12,7 @@ type propsType = {
   single?: string;
 };
 
-const Display = ({ background, single, handleClick }: propsType) => {
+const Display = block(({ background, single, handleClick }: propsType) => {
   return (
     <Card className="w-full border-none bg-transparent flex justify-center flex-col items-center relative">
       <Card className="w-full bg-transparent border-none relative pb-3">
@@ -37,6 +38,6 @@ const Display = ({ background, single, handleClick }: propsType) => {
       </Card>
     </Card>
   );
-};
+});
 
 export default Display;

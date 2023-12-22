@@ -1,11 +1,13 @@
 import useOpositeHexadecimal from "@/hooks/useOpositeHexadecimal";
 import { Link } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
+import { block } from "million/react";
+
 type propsType = {
   color: string;
 };
 
-const Colorvariant = ({ color }: propsType) => {
+const Colorvariant = block(({ color }: propsType) => {
   const replaceDigitAtPosition = (
     originalString: string,
     position: number,
@@ -86,6 +88,6 @@ const Colorvariant = ({ color }: propsType) => {
       </div>
     </div>
   );
-};
+});
 
 export default Colorvariant;

@@ -1,12 +1,13 @@
 import { Card } from "@/components/ui/card";
 import { Pause, Palette, Ruler, Shapes } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { block } from "million/react";
 
 type propsType = {
   className?: string;
 };
 
-const Header = ({ className }: propsType) => {
+const Header = block(({ className }: propsType) => {
   return (
     <Card
       className={cn(
@@ -30,6 +31,6 @@ const Header = ({ className }: propsType) => {
       </Card>
     </Card>
   );
-};
+});
 
 export default Header;

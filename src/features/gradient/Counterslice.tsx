@@ -24,8 +24,9 @@ import {
   Minimize2,
   Expand,
 } from "lucide-react";
+import { block } from "million/react";
 
-const Counterslice = () => {
+const Counterslice = block(() => {
   const [expend, setExpend] = useState(false);
   const { repeating, negativeRotation, repeatingUnit, repeatingLength } =
     useSelector(gradientSelector);
@@ -225,6 +226,6 @@ const Counterslice = () => {
       </Card>
     </Card>
   );
-};
+});
 
 export default Counterslice;
