@@ -91,12 +91,12 @@
 @layer base {
   @font-face {
     font-family: "Aquino Demo";
-    src: url("./Aquino-Demo.woff") format("woff");
+    src: url("@Aquino") format("woff");
   }
 
   @font-face {
     font-family: "Nunito", sans-serif;
-    src: url("./Nunito-Medium.ttf") format("truetype");
+    src: url("@Nunito") format("truetype");
   }
   * {
     @apply border-border;

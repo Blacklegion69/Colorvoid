@@ -8,6 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@Aquino": path.resolve(__dirname, "./public/Aquino-Demo.woff"),
+      "@Nunito": path.resolve(__dirname, "./public/Nunito-Medium.ttf"),
     },
   },
 });
