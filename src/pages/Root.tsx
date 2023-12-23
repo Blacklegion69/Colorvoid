@@ -8,6 +8,8 @@ import Hero from "@/components/section/Hero";
 import ScrollToTopButton from "@/components/section/ScrollToTopButton";
 import featureslist from "@/constant/featureslist";
 
+import { block, For } from "million/react";
+
 const Herosection = () => {
   return (
     <Fullscreen className="flex pt-20 items-center flex-col">
@@ -86,7 +88,7 @@ const Enjoy = () => {
   );
 };
 
-const Root = () => {
+const Root = block(() => {
   const Features = () => {
     return (
       <Fullscreen className=" flex justify-center flex-col relative">
@@ -94,7 +96,7 @@ const Root = () => {
           Features:
         </Gradienttext>
         <ul className="list-outside pl-12 list-disc font-bold">
-          {featureslist.map((title, id) => {
+          {/*featureslist.map((title, id) => {
             return (
               <li key={id}>
                 <Gradienttext className="font-bold text-xl dark:bg-gradient-to-tl dark:from-blue-500 dark:via-green-200 dark:to-green-500 bg-gradient-to-tl from-gray-700 via-gray-900 to-black">
@@ -103,7 +105,17 @@ const Root = () => {
                 <Separator />
               </li>
             );
-          })}
+          })*/}
+          <For each={featureslist}>
+            {(title) => (
+              <li>
+                <Gradienttext className="font-bold text-xl dark:bg-gradient-to-tl dark:from-blue-500 dark:via-green-200 dark:to-green-500 bg-gradient-to-tl from-gray-700 via-gray-900 to-black">
+                  {title}.
+                </Gradienttext>
+                <Separator />
+              </li>
+            )}
+          </For>
         </ul>
       </Fullscreen>
     );
@@ -120,5 +132,5 @@ const Root = () => {
       <Enjoy />
     </div>
   );
-};
+});
 export default Root;

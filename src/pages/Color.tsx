@@ -7,11 +7,13 @@ import useHexaToRgb from "@/hooks/useHexaToRgb";
 import useHexaToHsl from "@/hooks/useHexaToHsl";
 import React from "react";
 import Copy from "@/components/custom/Copy";
-import Colorvariant from "@/components/section/Colorvariant";
 import ScrollToTopButton from "@/components/section/ScrollToTopButton";
 import featureslist from "@/constant/featureslist";
 import Canvas from "@/components/custom/Canvas";
 import Json from "@/components/redux/Json";
+import Loading from "@/components/custom/Loading";
+import { lazy, Suspense } from "react";
+const Colorvariant = lazy(() => import("@/components/section/Colorvariant"));
 
 const Gradientbox = ({
   main,
@@ -107,7 +109,9 @@ const Color = () => {
       <Duelcolor />
       <Duelgradient />
       <Json code={JSON.stringify(data)} />
-      <Colorvariant color={colors[0].main} />
+      <Suspense fallback={<Loading />}>
+        <Colorvariant color={colors[0].main} />
+      </Suspense>
       <Gradienttext className="text-5xl aquino py-5 text-center">
         Text visibility
       </Gradienttext>
