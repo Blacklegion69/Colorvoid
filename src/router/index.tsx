@@ -1,5 +1,5 @@
 import { Loader } from "lucide-react";
-import { lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 const Root = lazy(() => import("@/pages/Root"));
 const Notfound = lazy(() => import("@/pages/Notfound"));
@@ -14,131 +14,135 @@ const Rgb2hexa = lazy(() => import("@/pages/Rgb2hexa"));
 const Gradient = lazy(() => import("@/pages/Gradient"));
 const Mesh = lazy(() => import("@/pages/Mesh"));
 
-const Loading = () => {
-  return (
-    <div className="w-full min-h-screen flex justify-center items-center relative">
-      <Loader className="w-[200px] h-[200px] animate-spin" />
-    </div>
-  );
-};
+class Loading extends React.Component {
+  render() {
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center relative">
+        <Loader className="w-[200px] h-[200px] animate-spin" />
+      </div>
+    );
+  }
+}
 
-const Router = () => {
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Suspense fallback={<Loading />}>
-            <Root />
-          </Suspense>
-        }
-      />
-      <Route path="/home">
-        <Route path="colors">
+class Router extends React.Component {
+  render() {
+    return (
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Root />
+            </Suspense>
+          }
+        />
+        <Route path="/home">
+          <Route path="colors">
+            <Route
+              path=""
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Colors />
+                </Suspense>
+              }
+            />
+            <Route
+              path=":id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Color />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route path="converters">
+            <Route
+              path=""
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Converters />
+                </Suspense>
+              }
+            />
+            <Route
+              path="rgb2hexa"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Rgb2hexa />
+                </Suspense>
+              }
+            />
+            <Route
+              path="hexa2rgb"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Hexa2rgb />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route path="gradientgenerators">
+            <Route
+              path=""
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Gradientgenerators />
+                </Suspense>
+              }
+            />
+            <Route
+              path="gradient"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Gradient />
+                </Suspense>
+              }
+            />
+            <Route
+              path="gradient/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Gradient />
+                </Suspense>
+              }
+            />
+            <Route
+              path="mesh"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Mesh />
+                </Suspense>
+              }
+            />
+          </Route>
           <Route
-            path=""
+            path="aboutme"
             element={
               <Suspense fallback={<Loading />}>
-                <Colors />
+                <Aboutme />
               </Suspense>
             }
           />
           <Route
-            path=":id"
+            path="palette"
             element={
               <Suspense fallback={<Loading />}>
-                <Color />
-              </Suspense>
-            }
-          />
-        </Route>
-        <Route path="converters">
-          <Route
-            path=""
-            element={
-              <Suspense fallback={<Loading />}>
-                <Converters />
-              </Suspense>
-            }
-          />
-          <Route
-            path="rgb2hexa"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Rgb2hexa />
-              </Suspense>
-            }
-          />
-          <Route
-            path="hexa2rgb"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Hexa2rgb />
-              </Suspense>
-            }
-          />
-        </Route>
-        <Route path="gradientgenerators">
-          <Route
-            path=""
-            element={
-              <Suspense fallback={<Loading />}>
-                <Gradientgenerators />
-              </Suspense>
-            }
-          />
-          <Route
-            path="gradient"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Gradient />
-              </Suspense>
-            }
-          />
-          <Route
-            path="gradient/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Gradient />
-              </Suspense>
-            }
-          />
-          <Route
-            path="mesh"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Mesh />
+                <Palette />
               </Suspense>
             }
           />
         </Route>
         <Route
-          path="aboutme"
+          path="*"
           element={
             <Suspense fallback={<Loading />}>
-              <Aboutme />
+              <Notfound />
             </Suspense>
           }
         />
-        <Route
-          path="palette"
-          element={
-            <Suspense fallback={<Loading />}>
-              <Palette />
-            </Suspense>
-          }
-        />
-      </Route>
-      <Route
-        path="*"
-        element={
-          <Suspense fallback={<Loading />}>
-            <Notfound />
-          </Suspense>
-        }
-      />
-    </Routes>
-  );
-};
+      </Routes>
+    );
+  }
+}
 
 export default Router;
